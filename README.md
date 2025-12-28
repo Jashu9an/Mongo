@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Лабораторная работа 3: ClickHouse для анализа e-commerce данных
 
 ## Запуск инфраструктуры
@@ -70,3 +71,7 @@ curl "http://localhost:8123/?query=CREATE%20TABLE%20test%20(id%20UInt8,%20name%2
 │   └── dashboards/
 └── scripts/                    # SQL скрипты и скрипты тестирования
 ```
+=======
+# Mongo
+MongoDB lab
+>>>>>>> 8fe2bcb5e1502b47c64400c04b62015adc7c9776
