@@ -1,0 +1,154 @@
+{
+  "id": null,
+  "uid": "ecommerce-technical",
+  "title": "⚙️ ClickHouse Technical Overview",
+  "timezone": "browser",
+  "schemaVersion": 38,
+  "version": 1,
+  "refresh": "15s",
+  "time": {
+    "from": "now-1h",
+    "to": "now"
+  },
+  "panels": [
+    {
+      "id": 1,
+      "type": "stat",
+      "title": "Memory Usage",
+      "datasource": "Prometheus",
+      "targets": [
+        {
+          "expr": "ClickHouseMetrics_MemoryTracking",
+          "refId": "A"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "bytes"
+        },
+        "overrides": []
+      },
+      "gridPos": { "h": 4, "w": 6, "x": 0, "y": 0 }
+    },
+    {
+      "id": 2,
+      "type": "stat",
+      "title": "Active Queries",
+      "datasource": "Prometheus",
+      "targets": [
+        {
+          "expr": "ClickHouseProfileEvents_Query",
+          "refId": "A"
+        }
+      ],
+      "gridPos": { "h": 4, "w": 6, "x": 6, "y": 0 }
+    },
+    {
+      "id": 3,
+      "type": "stat",
+      "title": "Background Merge Tasks",
+      "datasource": "Prometheus",
+      "targets": [
+        {
+          "expr": "rate(ClickHouseProfileEvents_MergesThrottlerBytes[5m])",
+          "refId": "A"
+        }
+      ],
+      "gridPos": { "h": 4, "w": 6, "x": 12, "y": 0 }
+    },
+    {
+      "id": 4,
+      "type": "stat",
+      "title": "Asynchronous Insert Queue",
+      "datasource": "Prometheus",
+      "targets": [
+        {
+          "expr": "ClickHouseAsyncMetrics_TrackedMemory",
+          "refId": "A"
+        }
+      ],
+      "gridPos": { "h": 4, "w": 6, "x": 18, "y": 0 }
+    },
+    {
+      "id": 5,
+      "type": "timeseries",
+      "title": "Query Rate (5m)",
+      "datasource": "Prometheus",
+      "targets": [
+        {
+          "expr": "rate(ClickHouseProfileEvents_Query[5m])",
+          "legendFormat": "All Queries",
+          "refId": "A"
+        },
+        {
+          "expr": "rate(ClickHouseProfileEvents_SelectQuery[5m])",
+          "legendFormat": "Select Queries",
+          "refId": "B"
+        },
+        {
+          "expr": "rate(ClickHouseProfileEvents_InsertQuery[5m])",
+          "legendFormat": "Insert Queries",
+          "refId": "C"
+        }
+      ],
+      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 4 }
+    },
+    {
+      "id": 6,
+      "type": "timeseries",
+      "title": "Query Time (µs)",
+      "datasource": "Prometheus",
+      "targets": [
+        {
+          "expr": "rate(ClickHouseProfileEvents_QueryTimeMicroseconds[5m])",
+          "legendFormat": "Query Time",
+          "refId": "A"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "µs"
+        }
+      },
+      "gridPos": { "h": 8, "w": 12, "x": 12, "y": 4 }
+    },
+    {
+      "id": 7,
+      "type": "timeseries",
+      "title": "Background Threads",
+      "datasource": "Prometheus",
+      "targets": [
+        {
+          "expr": "rate(ClickHouseProfileEvents_GlobalThreadPoolExpansions[5m])",
+          "legendFormat": "Schedule Tasks",
+          "refId": "A"
+        },
+        {
+          "expr": "rate(ClickHouseProfileEvents_GlobalThreadPoolShrinks[5m])",
+          "legendFormat": "Fetch Tasks",
+          "refId": "B"
+        }
+      ],
+      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 12 }
+    },
+    {
+      "id": 8,
+      "type": "timeseries",
+      "title": "Asynchronous Metrics",
+      "datasource": "Prometheus",
+      "targets": [
+        {
+          "expr": "ClickHouseAsyncMetrics_AsynchronousMetricsCalculationTimeSpent",
+          "legendFormat": "Calculation Time",
+          "refId": "A"
+        },
+        {
+          "expr": "ClickHouseAsyncMetrics_AsynchronousMetricsUpdateInterval",
+          "legendFormat": "Update Interval",
+          "refId": "B"
+        }
+      ],
+      "gridPos": { "h": 8, "w": 12, "x": 12, "y": 12 }
+    }
+  ]
+}
